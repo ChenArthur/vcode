@@ -40,22 +40,18 @@ public class QRCodeUtil {
 	// LOGO高度
 	private static final int HEIGHT = 60;
 
-	private static BufferedImage createImage(String content, String imgPath,
-			boolean needCompress) throws Exception {
+	private static BufferedImage createImage(String content, String imgPath, boolean needCompress) throws Exception {
 		Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>();
 		hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
 		hints.put(EncodeHintType.CHARACTER_SET, CHARSET);
 		hints.put(EncodeHintType.MARGIN, 1);
-		BitMatrix bitMatrix = new MultiFormatWriter().encode(content,
-				BarcodeFormat.QR_CODE, QRCODE_SIZE, QRCODE_SIZE, hints);
+		BitMatrix bitMatrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, QRCODE_SIZE, QRCODE_SIZE, hints);
 		int width = bitMatrix.getWidth();
 		int height = bitMatrix.getHeight();
-		BufferedImage image = new BufferedImage(width, height,
-				BufferedImage.TYPE_INT_RGB);
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				image.setRGB(x, y, bitMatrix.get(x, y) ? 0xFF000000
-						: 0xFFFFFFFF);
+				image.setRGB(x, y, bitMatrix.get(x, y) ? 0xFF000000 : 0xFFFFFFFF);
 			}
 		}
 		if (imgPath == null || "".equals(imgPath)) {
@@ -77,8 +73,7 @@ public class QRCodeUtil {
 	 *            是否压缩
 	 * @throws Exception
 	 */
-	private static void insertImage(BufferedImage source, String imgPath,
-			boolean needCompress) throws Exception {
+	private static void insertImage(BufferedImage source, String imgPath, boolean needCompress) throws Exception {
 		File file = new File(imgPath);
 		if (!file.exists()) {
 			System.err.println(""+imgPath+"   该文件不存在！");
@@ -94,10 +89,8 @@ public class QRCodeUtil {
 			if (height > HEIGHT) {
 				height = HEIGHT;
 			}
-			Image image = src.getScaledInstance(width, height,
-					Image.SCALE_SMOOTH);
-			BufferedImage tag = new BufferedImage(width, height,
-					BufferedImage.TYPE_INT_RGB);
+			Image image = src.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+			BufferedImage tag = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 			Graphics g = tag.getGraphics();
 			g.drawImage(image, 0, 0, null); // 绘制缩小后的图
 			g.dispose();
@@ -127,10 +120,8 @@ public class QRCodeUtil {
 	 *            是否压缩LOGO
 	 * @throws Exception
 	 */
-	public static void encode(String content, String imgPath, String destPath,
-			boolean needCompress) throws Exception {
-		BufferedImage image = QRCodeUtil.createImage(content, imgPath,
-				needCompress);
+	public static void encode(String content, String imgPath, String destPath, boolean needCompress) throws Exception {
+		BufferedImage image = QRCodeUtil.createImage(content, imgPath, needCompress);
 		mkdirs(destPath);
 		String file = new Random().nextInt(99999999)+".jpg";
 		ImageIO.write(image, FORMAT_NAME, new File(destPath+"/"+file));
@@ -162,8 +153,7 @@ public class QRCodeUtil {
 	 *            存储地址
 	 * @throws Exception
 	 */
-	public static void encode(String content, String imgPath, String destPath)
-			throws Exception {
+	public static void encode(String content, String imgPath, String destPath) throws Exception {
 		QRCodeUtil.encode(content, imgPath, destPath, false);
 	}
 
@@ -178,8 +168,7 @@ public class QRCodeUtil {
 	 *            是否压缩LOGO
 	 * @throws Exception
 	 */
-	public static void encode(String content, String destPath,
-			boolean needCompress) throws Exception {
+	public static void encode(String content, String destPath, boolean needCompress) throws Exception {
 		QRCodeUtil.encode(content, null, destPath, needCompress);
 	}
 
@@ -209,10 +198,8 @@ public class QRCodeUtil {
 	 *            是否压缩LOGO
 	 * @throws Exception
 	 */
-	public static void encode(String content, String imgPath,
-			OutputStream output, boolean needCompress) throws Exception {
-		BufferedImage image = QRCodeUtil.createImage(content, imgPath,
-				needCompress);
+	public static void encode(String content, String imgPath, OutputStream output, boolean needCompress) throws Exception {
+		BufferedImage image = QRCodeUtil.createImage(content, imgPath, needCompress);
 		ImageIO.write(image, FORMAT_NAME, output);
 	}
 
@@ -225,8 +212,7 @@ public class QRCodeUtil {
 	 *            输出流
 	 * @throws Exception
 	 */
-	public static void encode(String content, OutputStream output)
-			throws Exception {
+	public static void encode(String content, OutputStream output) throws Exception {
 		QRCodeUtil.encode(content, null, output, false);
 	}
 
@@ -244,8 +230,7 @@ public class QRCodeUtil {
 		if (image == null) {
 			return null;
 		}
-		BufferedImageLuminanceSource source = new BufferedImageLuminanceSource(
-				image);
+		BufferedImageLuminanceSource source = new BufferedImageLuminanceSource(image);
 		BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
 		Result result;
 		Hashtable<DecodeHintType, Object> hints = new Hashtable<DecodeHintType, Object>();

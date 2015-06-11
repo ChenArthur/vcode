@@ -82,14 +82,12 @@ public class BufferedImageLuminanceSource extends LuminanceSource {
         return true; 
     } 
    
-       
-    public LuminanceSource rotateCounterClockwise() { 
+    
+    public LuminanceSource rotateCounterClockwise() {
         int sourceWidth = image.getWidth(); 
         int sourceHeight = image.getHeight(); 
-        AffineTransform transform = new AffineTransform(0.0, -1.0, 1.0, 
-                0.0, 0.0, sourceWidth); 
-        BufferedImage rotatedImage = new BufferedImage(sourceHeight, 
-                sourceWidth, BufferedImage.TYPE_BYTE_GRAY); 
+        AffineTransform transform = new AffineTransform(0.0, -1.0, 1.0, 0.0, 0.0, sourceWidth);
+        BufferedImage rotatedImage = new BufferedImage(sourceHeight, sourceWidth, BufferedImage.TYPE_BYTE_GRAY); 
         Graphics2D g = rotatedImage.createGraphics(); 
         g.drawImage(image, transform, null); 
         g.dispose(); 

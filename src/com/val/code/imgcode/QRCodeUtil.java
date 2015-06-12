@@ -254,6 +254,7 @@ public class QRCodeUtil {
 
 	public static void main(String[] args) throws Exception {
 		String text = "薯　灯可分列式本上楞珂要瓜熟蒂落！000000000000000";
-		QRCodeUtil.encode(text, "f:/df.jpg", "f:/a/", true);
+//		QRCodeUtil.encode(text, "f:/df.jpg", "f:/a/", true);
+		QRCodeUtil.encode(text, "f:/df.jpg", "image", true);
 	}
 }
